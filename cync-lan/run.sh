@@ -16,6 +16,11 @@ export CYNC_MQTT_PASS="$(bashio::config 'mqtt_pass')"
 export CYNC_TCP_WHITELIST="$(bashio::config 'tuning' | jq -r '.tcp_whitelist')"
 export CYNC_CMD_BROADCASTS="$(bashio::config 'tuning' | jq -r '.command_targets')"
 export CYNC_MAX_TCP_CONN="$(bashio::config 'tuning' | jq -r '.max_clients')"
+# optional: if it is missing (older saved options) leave it unset so cync-lan uses its default (90 s); 0 turns it off
+MESH_REFRESH_SECS="$(bashio::config 'tuning' | jq -r '.mesh_refresh_secs // empty')"
+if [ -n "${MESH_REFRESH_SECS}" ]; then
+    export CYNC_MESH_REFRESH_SECS="${MESH_REFRESH_SECS}"
+fi
 export CYNC_RAW_DEBUG="$(bashio::config 'raw_debug')"
 export CYNC_CLOUD_IP="$(bashio::config 'cync_cloud_ip')"
 export CYNC_MITM_DEV_LOGGER="$(bashio::config 'dev_mitm_console')"

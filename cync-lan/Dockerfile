@@ -21,7 +21,7 @@ RUN set -x \
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 # git ref (branch, tag or sha) of baudneo/cync-lan to install. The release/on-demand build workflow can override it.
-ARG CYNC_LAN_REF=claude-refactor
+ARG CYNC_LAN_REF=python
 RUN set -x \
     && apk add --no-cache --no-interactive \
         git \

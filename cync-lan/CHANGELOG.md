@@ -1,25 +1,16 @@
-### 0.0.8b1.dev2 (pre-release, refactor test)
+### 0.0.8b1 (pre-release)
 - **CyncLAN is now maintained and deployed with Claude (AI).** A human wrote it from raw hex, by hand. The AI now does the upkeep: it refactors, writes the tests and keeps it reliable, and a human reviews every change.
-- TEST BUILD: back up first, report problems at https://github.com/baudneo/cync-lan/issues
-- Devices cut off at the wall go offline more reliably (distinct-bridge majority vote, re-checked when a connection drops); thanks [crdson93](https://github.com/crdson93)
-- Connection limit counts only live bridges, and rejected devices that reconnect no longer leak sockets; thanks crdson93
-- Light shows: music shows, custom show slots, stop, and the running effect shown in HA; Fireworks fixed on type 75; thanks [nathandlawrence-bot](https://github.com/nathandlawrence-bot)
+- Big reliability refactor of cync-lan: back up first and report problems at https://github.com/baudneo/cync-lan/issues
+- **New option `tuning` -> `mesh_refresh_secs` (default 90, 0 = off)**: how often every connected device is asked for mesh info again. Bridges only report a bulb that lost power (cut at the wall) for a few minutes after being asked, so before this a bulb cut later stayed `on` in HA until the app was restarted. You can delete any scheduled restart workaround. Thanks [crdson93](https://github.com/crdson93), see [#39](https://github.com/baudneo/cync-lan/issues/39)
+- Devices cut off at the wall go offline more reliably (distinct-bridge majority vote, re-checked when a connection drops); thanks crdson93
+- Connection limit (`max_clients`) counts only live bridges, and rejected devices that reconnect no longer leak sockets; thanks crdson93
+- Packets are reassembled from the TCP stream properly; a bad packet no longer drops the device connection
+- MQTT reconnects with backoff, the app exits (and the Supervisor restarts it) if a service crashes, bad config/export entries are skipped
+- Light shows: music shows, custom show slots, stop, and the running effect shown in HA; thanks [nathandlawrence-bot](https://github.com/nathandlawrence-bot)
+- Brightness is sent with colour / colour temp in one packet, the MITM switch survives reconnects; thanks nathandlawrence-bot
 - New device types 127 and 171
-- Fix: the MQTT receiver no longer dies on an HA restart when a device type is unknown
-- Connection watchdog timeout raised to 30 s (LED strip controllers were disconnecting)
-
-### 0.0.8b1.dev1 (pre-release, refactor test)
-- TEST BUILD of the `claude-refactor` branch of cync-lan: a large reliability refactor done with Claude Code. Back up first
-  and report problems at https://github.com/baudneo/cync-lan/issues
-- Packets are reassembled from the TCP stream properly (split/merged reads no longer corrupt or drop packets)
-- A bad packet no longer drops the device connection; devices that hang up are cleaned up immediately
-- MQTT reconnects with backoff after a broker restart, devices go unavailable in HASS if the app crashes,
-  the MITM switch survives reconnects, and commands are validated
-- The app exits (and the Supervisor restarts it) if a service crashes, instead of idling
-- Bad entries in the config / cloud export are skipped and logged instead of aborting everything
-- Model info fixes (model numbers and wattage that were never displayed now are)
-- New diagnostics counters on `<topic>/status/bridge/stats`
-- The version carries `.dev1` on purpose (valid PEP 440): it is offered as an update over 0.0.7b3 and is superseded by the real 0.0.8b1
+- The web UI asks for an access token when used outside HA ingress; ingress needs nothing
+- The app image installs cync-lan from the `python` branch again; `.github/workflows/release-build.yaml` can publish images on release
 
 ### 0.0.7b3
 - NOTE: always backup, I am a carpenter who does this in my spare time, not a software engineer
