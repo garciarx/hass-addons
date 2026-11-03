@@ -1,3 +1,17 @@
+### 0.0.8b1 (pre-release)
+- **CyncLAN is now maintained and deployed with Claude (AI).** A human wrote it from raw hex, by hand. The AI now does the upkeep: it refactors, writes the tests and keeps it reliable, and a human reviews every change.
+- Big reliability refactor of cync-lan: back up first and report problems at https://github.com/baudneo/cync-lan/issues
+- **New option `tuning` -> `mesh_refresh_secs` (default 90, 0 = off)**: how often every connected device is asked for mesh info again. Bridges only report a bulb that lost power (cut at the wall) for a few minutes after being asked, so before this a bulb cut later stayed `on` in HA until the app was restarted. You can delete any scheduled restart workaround. Thanks [crdson93](https://github.com/crdson93), see [#39](https://github.com/baudneo/cync-lan/issues/39)
+- Devices cut off at the wall go offline more reliably (distinct-bridge majority vote, re-checked when a connection drops); thanks crdson93
+- Connection limit (`max_clients`) counts only live bridges, and rejected devices that reconnect no longer leak sockets; thanks crdson93
+- Packets are reassembled from the TCP stream properly; a bad packet no longer drops the device connection
+- MQTT reconnects with backoff, the app exits (and the Supervisor restarts it) if a service crashes, bad config/export entries are skipped
+- Light shows: music shows, custom show slots, stop, and the running effect shown in HA; thanks [nathandlawrence-bot](https://github.com/nathandlawrence-bot)
+- Brightness is sent with colour / colour temp in one packet, the MITM switch survives reconnects; thanks nathandlawrence-bot
+- New device types 127 and 171
+- The web UI asks for an access token when used outside HA ingress; ingress needs nothing
+- The app image installs cync-lan from the `python` branch again; `.github/workflows/release-build.yaml` can publish images on release
+
 ### 0.0.7b3
 - NOTE: always backup, I am a carpenter who does this in my spare time, not a software engineer
 - All fixes thanks to [crdson93](https://github.com/crdson93)
