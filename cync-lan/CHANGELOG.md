@@ -1,3 +1,7 @@
+### 0.0.8b1-mh2
+- **Cync rooms as lights (experimental)**: each Cync room becomes a light that turns the whole room on/off (and sets brightness / colour) with ONE command, like the Cync app, so the lights change together instead of one by one. After updating, press **Start Export** on the CyncLAN bridge device once and restart the app so the rooms are read from the cloud.
+- Installs garciarx/cync-lan at commit 543c8e0 (pinned instead of the `multi-home` branch name)
+
 ### 0.0.8b1 (pre-release)
 - **CyncLAN is now maintained and deployed with Claude (AI).** A human wrote it from raw hex, by hand. The AI now does the upkeep: it refactors, writes the tests and keeps it reliable, and a human reviews every change.
 - Big reliability refactor of cync-lan: back up first and report problems at https://github.com/baudneo/cync-lan/issues
