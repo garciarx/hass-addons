@@ -1,3 +1,8 @@
+### 0.0.8b1-mh5
+- **New option `hybrid_relay` (experimental)**: listed devices stay visible in the Cync app (relayed to the cloud) while Home Assistant keeps controlling them locally. Start with one device, e.g. `1754061898-12`
+- If the Cync cloud cannot be reached when a MITM / hybrid device reconnects, it now falls back to local control
+- Installs garciarx/cync-lan at commit 0964b72
+
 ### 0.0.8b1-mh4
 - **Fixed: Casita-style homes stayed unavailable after a restart.** Some bridges report which devices are online in a byte-stuffed packet that was ignored; it is now parsed, so every device comes back online within seconds of a restart
 - Installs garciarx/cync-lan at commit 923464d

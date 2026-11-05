@@ -42,6 +42,9 @@ configuration:
   app_proxy:
     name: Relay the Cync app to the cloud
     description: "Relay Cync app connections from your network to the Cync cloud instead of closing them, so the app works on your Wi-Fi (default: false)"
+  hybrid_relay:
+    name: Hybrid relay devices (experimental)
+    description: "Devices relayed to the Cync cloud (so the app sees them online) while Home Assistant keeps controlling them locally. Comma separated <home_id>-<device_id>, e.g. 1754061898-12, or all. Empty = off"
   app_mitm_log:
     name: App MITM Logging
     description: "Log MITM proxy requests from/to all Cync app instances (default: false)"
