@@ -1,3 +1,7 @@
+### 0.0.8b1-mh4
+- **Fixed: Casita-style homes stayed unavailable after a restart.** Some bridges report which devices are online in a byte-stuffed packet that was ignored; it is now parsed, so every device comes back online within seconds of a restart
+- Installs garciarx/cync-lan at commit 923464d
+
 ### 0.0.8b1-mh3
 - **New option `cloud_uplink` (off by default)**: one bridge per home, preferably a multi-way (3-way auxiliary) switch, is relayed to the Cync cloud so the Cync app shows live status; Home Assistant keeps control through every other bridge
 - **New option `app_proxy` (off by default)**: the Cync app on your Wi-Fi is relayed to the cloud instead of being cut off, so it stops showing everything as unavailable. Turn on `app_mitm_log` too to capture its traffic
