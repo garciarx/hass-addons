@@ -23,7 +23,7 @@ ARG BUILD_VERSION
 # git ref (branch, tag or sha) of garciarx/cync-lan (fork) to install. The release/on-demand build workflow can override it.
 # Pinned to a commit so every add-on version installs known code (and Docker cannot reuse a stale cached install of
 # the branch): bump it together with config.yaml's version.
-ARG CYNC_LAN_REF=0964b723e9a57a6fbfdc2479d4faf7623cdbef2e
+ARG CYNC_LAN_REF=52302aa530f36f2b01a08588935d9982d4604f81
 RUN set -x \
     && apk add --no-cache --no-interactive \
         git \
