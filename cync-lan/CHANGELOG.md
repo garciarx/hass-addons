@@ -1,3 +1,8 @@
+### 0.0.8b1-mh12
+- **New "Devices & Groups" tab** in this app's page (sidebar): every home's devices (online, bridge, 3-way, cloud relay, the groups each switch reports), its Cync rooms (read only, with *Copy as local group*), and cync-lan's local groups: create, edit, delete and re-sync them, rename or disable devices. Changes are saved to `cync_mesh.yaml` (with a backup) and show up in Home Assistant at once
+- The OTP / export page is now the *Export* tab
+- Installs garciarx/cync-lan at commit 561e5d7
+
 ### 0.0.8b1-mh11
 - Fixed: syncing a local group could leave a switch out of its Cync room (a late copy of a "leave room" command). Sync no longer leaves the room, and group commands go through one bridge
 - Installs garciarx/cync-lan at commit 0d71024

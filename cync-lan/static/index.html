@@ -3,12 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyncLAN - Device Export</title>
+  <title>CyncLAN</title>
   <link href="./static/css/main.min.css" rel="stylesheet">
   <link href="./static/css/animate.min.css" rel="stylesheet">
   <link href="./static/css/prism-tomorrow.min.css" rel="stylesheet">
+
+  <style>
+    /* Devices & Groups tab: own styles (main.min.css only holds the classes the export page uses) */
+    :root { --cl-bg:#f3f4f6; --cl-card:#fff; --cl-text:#1f2937; --cl-muted:#6b7280; --cl-line:#e5e7eb;
+            --cl-accent:#4f46e5; --cl-accent-2:#eef2ff; --cl-ok:#059669; --cl-warn:#b45309; --cl-bad:#dc2626; }
+    @media (prefers-color-scheme: dark) {
+      :root { --cl-bg:#111827; --cl-card:#1f2937; --cl-text:#f3f4f6; --cl-muted:#9ca3af; --cl-line:#374151;
+              --cl-accent:#818cf8; --cl-accent-2:#312e81; --cl-ok:#34d399; --cl-warn:#fbbf24; --cl-bad:#f87171; }
+    }
+    body.cl { margin:0; background:var(--cl-bg); color:var(--cl-text); font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+              display:block; min-height:100vh; }
+    .cl-top { position:sticky; top:0; z-index:5; background:var(--cl-card); border-bottom:1px solid var(--cl-line);
+              display:flex; gap:4px; padding:8px 12px; align-items:center; }
+    .cl-brand { font-weight:700; margin-right:12px; }
+    .cl-tab { border:0; background:none; color:var(--cl-muted); padding:8px 12px; border-radius:8px; font:inherit; cursor:pointer; }
+    .cl-tab.on { background:var(--cl-accent-2); color:var(--cl-accent); font-weight:600; }
+    .cl-wrap { max-width:980px; margin:0 auto; padding:16px 12px 48px; }
+    #tab-export .cl-wrap { display:flex; justify-content:center; padding-top:32px; }
+    .cl-homes { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+    .cl-pill { border:1px solid var(--cl-line); background:var(--cl-card); color:var(--cl-text); border-radius:999px;
+               padding:6px 14px; font:inherit; cursor:pointer; }
+    .cl-pill.on { border-color:var(--cl-accent); color:var(--cl-accent); font-weight:600; }
+    .cl-card { background:var(--cl-card); border:1px solid var(--cl-line); border-radius:12px; margin-bottom:16px; }
+    .cl-card > header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 16px;
+                        border-bottom:1px solid var(--cl-line); }
+    .cl-card h2 { font-size:16px; margin:0; }
+    .cl-card .cl-sub { color:var(--cl-muted); font-size:13px; }
+    .cl-row { display:flex; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid var(--cl-line); flex-wrap:wrap; }
+    .cl-row:last-child { border-bottom:0; }
+    .cl-grow { flex:1 1 220px; min-width:0; }
+    .cl-name { font-weight:600; }
+    .cl-chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+    .cl-chip { font-size:12px; padding:2px 8px; border-radius:999px; background:var(--cl-bg); color:var(--cl-muted); }
+    .cl-badge { font-size:11px; padding:2px 7px; border-radius:6px; border:1px solid var(--cl-line); color:var(--cl-muted); }
+    .cl-badge.ok { color:var(--cl-ok); border-color:currentColor; } .cl-badge.warn { color:var(--cl-warn); border-color:currentColor; }
+    .cl-badge.bad { color:var(--cl-bad); border-color:currentColor; }
+    .cl-btn { border:1px solid var(--cl-line); background:var(--cl-card); color:var(--cl-text); border-radius:8px; padding:6px 12px;
+              font:inherit; font-size:14px; cursor:pointer; white-space:nowrap; }
+    .cl-btn:hover { border-color:var(--cl-accent); }
+    .cl-btn.primary { background:var(--cl-accent); border-color:var(--cl-accent); color:#fff; }
+    .cl-btn.danger { color:var(--cl-bad); }
+    .cl-btn:disabled { opacity:.5; cursor:default; }
+    .cl-actions { display:flex; gap:6px; flex-wrap:wrap; }
+    .cl-empty { padding:16px; color:var(--cl-muted); }
+    .cl-input { width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid var(--cl-line); border-radius:8px;
+                background:var(--cl-bg); color:var(--cl-text); font:inherit; }
+    .cl-modal { position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:flex-end; justify-content:center; z-index:20; }
+    @media (min-width:640px) { .cl-modal { align-items:center; } }
+    .cl-dialog { background:var(--cl-card); width:100%; max-width:560px; max-height:90vh; display:flex; flex-direction:column;
+                 border-radius:14px 14px 0 0; }
+    @media (min-width:640px) { .cl-dialog { border-radius:14px; } }
+    .cl-dialog > header, .cl-dialog > footer { padding:14px 16px; display:flex; gap:8px; align-items:center; }
+    .cl-dialog > header { border-bottom:1px solid var(--cl-line); justify-content:space-between; }
+    .cl-dialog > footer { border-top:1px solid var(--cl-line); justify-content:flex-end; }
+    .cl-dialog .cl-body { padding:12px 16px; overflow:auto; display:flex; flex-direction:column; gap:10px; }
+    .cl-pick { border:1px solid var(--cl-line); border-radius:10px; overflow:hidden; }
+    .cl-pick h3 { margin:0; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--cl-muted);
+                  padding:8px 12px; background:var(--cl-bg); display:flex; justify-content:space-between; }
+    .cl-pick label { display:flex; gap:10px; align-items:center; padding:8px 12px; border-top:1px solid var(--cl-line); cursor:pointer; }
+    .cl-note { font-size:13px; color:var(--cl-muted); }
+    .cl-err { color:var(--cl-bad); font-size:13px; }
+    .cl-toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 16px;
+                border-radius:10px; z-index:30; font-size:14px; max-width:90vw; }
+  </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+<body class="cl">
+  <nav class="cl-top">
+    <span class="cl-brand">CyncLAN</span>
+    <button class="cl-tab" data-tab="manage" onclick="showTab('manage')">Devices &amp; Groups</button>
+    <button class="cl-tab" data-tab="export" onclick="showTab('export')">Export</button>
+  </nav>
+
+  <section id="tab-manage" hidden>
+    <div class="cl-wrap">
+      <div id="clHomes" class="cl-homes"></div>
+      <div id="clContent"><div class="cl-empty">Loading…</div></div>
+    </div>
+  </section>
+
+  <section id="tab-export" hidden><div class="cl-wrap">
   <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-2xl w-full max-w-2xl animate__animated animate__fadeIn">
     <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">CyncLAN - Device Export</h1>
 
@@ -57,7 +135,10 @@
     </div>
   </div>
 
+  </div></section>
+
   <div id="toast" class="toast hidden"></div>
+  <div id="clModalRoot"></div>
 
   <script src="./static/js/prism.min.js"></script>
   <script src="./static/js/prism-yaml.min.js"></script>
@@ -187,6 +268,218 @@
         if (e.key === 'Enter') submitOTP();
       });
     });
+    // ===================== Devices & Groups =====================
+    const cl = { homes: [], home: null };
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const hex = (n) => '0x' + Number(n).toString(16).padStart(4, '0');
+
+    function clToast(msg) {
+      const t = document.createElement('div'); t.className = 'cl-toast'; t.textContent = msg;
+      document.body.appendChild(t); setTimeout(() => t.remove(), 3500);
+    }
+
+    async function clApi(path, opts = {}) {
+      if (opts.body && typeof opts.body !== 'string') {
+        opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+        opts.body = JSON.stringify(opts.body);
+      }
+      const r = await apiFetch('./api/manage' + path, opts);
+      let data = null; try { data = await r.json(); } catch (e) { /* empty */ }
+      if (!r.ok) {
+        const d = data && data.detail;
+        throw new Error(typeof d === 'string' ? d : (Array.isArray(d) ? d.map(x => x.msg).join(', ') : 'HTTP ' + r.status));
+      }
+      return data;
+    }
+
+    function showTab(name) {
+      for (const b of document.querySelectorAll('.cl-tab')) b.classList.toggle('on', b.dataset.tab === name);
+      document.getElementById('tab-manage').hidden = name !== 'manage';
+      document.getElementById('tab-export').hidden = name !== 'export';
+      history.replaceState(null, '', '#' + name);
+      if (name === 'manage') clLoad();
+    }
+
+    async function clLoad(keepHome = true) {
+      try {
+        cl.homes = await clApi('/homes');
+      } catch (e) {
+        document.getElementById('clContent').innerHTML =
+          `<div class="cl-card"><div class="cl-empty">Could not load the homes: ${esc(e.message)}.<br>
+           If there is no config yet, run an export first (Export tab).</div></div>`;
+        return;
+      }
+      if (!keepHome || !cl.homes.some(h => h.id === cl.home)) cl.home = cl.homes[0]?.id ?? null;
+      clRender();
+    }
+
+    function clHome() { return cl.homes.find(h => h.id === cl.home); }
+    function clDev(home, id) { return home.devices.find(d => d.id === id); }
+    function clRoomName(home, id) { return home.rooms.find(r => r.id === id)?.name; }
+
+    function clRender() {
+      document.getElementById('clHomes').innerHTML = cl.homes.map(h =>
+        `<button class="cl-pill ${h.id === cl.home ? 'on' : ''}" onclick="cl.home=${h.id};clRender()">${esc(h.name)}
+         <span class="cl-sub">· ${h.devices.length}</span></button>`).join('');
+      const home = clHome();
+      if (!home) { document.getElementById('clContent').innerHTML = '<div class="cl-empty">No homes.</div>'; return; }
+      const names = (ids) => ids.map(id => `<span class="cl-chip">${esc(clDev(home, id)?.name ?? ('#' + id))}</span>`).join('');
+
+      const groups = home.local_groups.map(g => `
+        <div class="cl-row">
+          <div class="cl-grow">
+            <div class="cl-name">${esc(g.name)} <span class="cl-sub">${hex(g.id)} · ${g.members.length} switch${g.members.length === 1 ? '' : 'es'}</span></div>
+            <div class="cl-chips">${names(g.members)}</div>
+          </div>
+          <div class="cl-actions">
+            <button class="cl-btn" onclick="clEditGroup(${g.id})">Edit</button>
+            <button class="cl-btn" title="Send the joins to the switches again" onclick="clGroupAction(${g.id},'sync')">Sync</button>
+            <button class="cl-btn danger" onclick="clDeleteGroup(${g.id})">Delete</button>
+          </div>
+        </div>`).join('') || '<div class="cl-empty">No local groups yet. A local group is switched by ONE command, so every light changes together, and it can span rooms.</div>';
+
+      const rooms = home.rooms.map(r => `
+        <div class="cl-row">
+          <div class="cl-grow">
+            <div class="cl-name">${esc(r.name)} <span class="cl-sub">${r.subgroup ? 'group in a room' : 'room'} · ${hex(r.id)}</span></div>
+            <div class="cl-chips">${names(r.members)}</div>
+          </div>
+          <div class="cl-actions"><button class="cl-btn" onclick="clCopyRoom(${r.id})">Copy as local group</button></div>
+        </div>`).join('') || '<div class="cl-empty">No rooms in the Cync app for this home.</div>';
+
+      const devices = home.devices.map(d => {
+        const reported = d.reported_groups ? d.reported_groups.map(hex).join(', ') : '';
+        const badges = [
+          d.online ? '<span class="cl-badge ok">online</span>' : '<span class="cl-badge bad">offline</span>',
+          d.bridge ? '<span class="cl-badge">bridge</span>' : '',
+          d.hybrid ? '<span class="cl-badge warn">cloud relay</span>' : '',
+          d.multi_way ? '<span class="cl-badge">3-way</span>' : '',
+        ].join(' ');
+        return `<div class="cl-row">
+          <div class="cl-grow">
+            <div class="cl-name">${esc(d.name)} <span class="cl-sub">#${d.id} · ${esc(d.model)}</span></div>
+            <div class="cl-chips">${badges}
+              ${d.room ? `<span class="cl-chip">${esc(clRoomName(home, d.room) ?? hex(d.room))}</span>` : ''}
+              ${reported ? `<span class="cl-chip" title="Groups the switch itself reported">on switch: ${reported}</span>` : ''}</div>
+          </div>
+          <div class="cl-actions">
+            <button class="cl-btn" onclick="clRenameDevice(${d.id})">Rename</button>
+            <button class="cl-btn danger" onclick="clDisableDevice(${d.id})">Disable</button>
+          </div></div>`;
+      }).join('');
+
+      document.getElementById('clContent').innerHTML = `
+        <div class="cl-card"><header><div><h2>Local groups</h2><div class="cl-sub">Made by cync-lan and stored on the switches. The Cync app does not show them.</div></div>
+          <button class="cl-btn primary" onclick="clEditGroup(null)">New group</button></header>${groups}</div>
+        <div class="cl-card"><header><div><h2>Cync rooms</h2><div class="cl-sub">From your Cync account, read only (change them in the Cync app, then export again).</div></div></header>${rooms}</div>
+        <div class="cl-card"><header><div><h2>Devices</h2><div class="cl-sub">${home.devices.filter(d => d.online).length} of ${home.devices.length} online</div></div>
+          <button class="cl-btn" onclick="clLoad()">Refresh</button></header>${devices}</div>`;
+    }
+
+    // ---- group editor
+    function clEditGroup(id, preset) {
+      const home = clHome();
+      const g = id ? home.local_groups.find(x => x.id === id) : null;
+      const chosen = new Set(g ? g.members : (preset?.members ?? []));
+      const byRoom = new Map();
+      for (const d of home.devices) {
+        const key = d.room ?? 0;
+        if (!byRoom.has(key)) byRoom.set(key, []);
+        byRoom.get(key).push(d);
+      }
+      const roomKey = (r) => r ? '0' + (clRoomName(home, r) ?? '') : '1';  // rooms A-Z, then "Not in a room"
+      const sections = [...byRoom.entries()].sort((a, b) => roomKey(a[0]).localeCompare(roomKey(b[0])))
+        .map(([room, devs]) => `<div class="cl-pick" data-room="${room}"><h3><span>${esc(room ? clRoomName(home, room) : 'Not in a room')}</span>
+          <a href="#" onclick="clPickAll(this);return false">all</a></h3>
+          ${devs.map(d => `<label data-name="${esc(d.name.toLowerCase())}"><input type="checkbox" value="${d.id}" ${chosen.has(d.id) ? 'checked' : ''}>
+            <span>${esc(d.name)} <span class="cl-sub">#${d.id}</span></span></label>`).join('')}</div>`).join('');
+      document.getElementById('clModalRoot').innerHTML = `
+        <div class="cl-modal" onclick="if(event.target===this)clCloseModal()"><div class="cl-dialog">
+          <header><strong>${g ? 'Edit group' : 'New local group'}</strong><button class="cl-btn" onclick="clCloseModal()">Close</button></header>
+          <div class="cl-body">
+            <input id="clGName" class="cl-input" placeholder="Group name, e.g. Master Suite" value="${esc(g?.name ?? preset?.name ?? '')}">
+            <input id="clGFilter" class="cl-input" placeholder="Filter switches…" oninput="clFilter(this.value)">
+            ${sections}
+            <div class="cl-note">Saving puts the group on the selected switches (about 1 s per switch). A switch can be in 8 groups at most.
+              ${g ? 'Switches you untick are taken out of the group.' : ''}</div>
+            <div id="clGErr" class="cl-err"></div>
+          </div>
+          <footer><span class="cl-sub" id="clGCount"></span><button id="clGSave" class="cl-btn primary" onclick="clSaveGroup(${g ? g.id : 'null'})">${g ? 'Save' : 'Create'}</button></footer>
+        </div></div>`;
+      const count = () => { document.getElementById('clGCount').textContent =
+        document.querySelectorAll('#clModalRoot input[type=checkbox]:checked').length + ' selected'; };
+      document.querySelectorAll('#clModalRoot input[type=checkbox]').forEach(cb => cb.addEventListener('change', count));
+      count();
+      document.getElementById('clGName').focus();
+    }
+    function clPickAll(a) {
+      const boxes = a.closest('.cl-pick').querySelectorAll('input[type=checkbox]');
+      const on = [...boxes].some(b => !b.checked);
+      boxes.forEach(b => { b.checked = on; b.dispatchEvent(new Event('change')); });
+    }
+    function clFilter(q) {
+      q = q.trim().toLowerCase();
+      document.querySelectorAll('#clModalRoot .cl-pick label').forEach(l => l.hidden = q && !l.dataset.name.includes(q));
+    }
+    function clCloseModal() { document.getElementById('clModalRoot').innerHTML = ''; }
+
+    async function clSaveGroup(id) {
+      const name = document.getElementById('clGName').value.trim();
+      const members = [...document.querySelectorAll('#clModalRoot input[type=checkbox]:checked')].map(b => Number(b.value));
+      const err = document.getElementById('clGErr');
+      if (!name) { err.textContent = 'Give the group a name.'; return; }
+      if (!members.length) { err.textContent = 'Pick at least one switch.'; return; }
+      const btn = document.getElementById('clGSave'); btn.disabled = true;
+      try {
+        if (id) await clApi(`/homes/${cl.home}/local_groups/${id}`, { method: 'PUT', body: { name, members } });
+        else await clApi(`/homes/${cl.home}/local_groups`, { method: 'POST', body: { name, members } });
+        clCloseModal();
+        clToast(`${name}: saved, sending it to ${members.length} switch${members.length === 1 ? '' : 'es'}…`);
+        await clLoad();
+        setTimeout(() => clLoad(), 1500 + members.length * 900);
+      } catch (e) { err.textContent = e.message; btn.disabled = false; }
+    }
+
+    function clCopyRoom(roomId) {
+      const r = clHome().rooms.find(x => x.id === roomId);
+      clEditGroup(null, { name: r.name + ' (local)', members: r.members });
+    }
+
+    async function clGroupAction(id, action) {
+      try { await clApi(`/homes/${cl.home}/local_groups/${id}/${action}`, { method: 'POST' });
+            clToast(action === 'sync' ? 'Sending the group to its switches…' : 'Taking the group off its switches…');
+            setTimeout(() => clLoad(), 6000);
+      } catch (e) { clToast('Failed: ' + e.message); }
+    }
+
+    async function clDeleteGroup(id) {
+      const g = clHome().local_groups.find(x => x.id === id);
+      if (!confirm(`Delete "${g.name}"? It is taken off its ${g.members.length} switch(es) and its Home Assistant light is removed.`)) return;
+      try { await clApi(`/homes/${cl.home}/local_groups/${id}`, { method: 'DELETE' }); clToast(`${g.name} deleted`); await clLoad(); }
+      catch (e) { clToast('Failed: ' + e.message); }
+    }
+
+    // ---- devices
+    async function clRenameDevice(id) {
+      const d = clDev(clHome(), id);
+      const name = prompt('New name for ' + d.name, d.name);
+      if (!name || name.trim() === d.name) return;
+      try { await clApi(`/homes/${cl.home}/devices/${id}`, { method: 'PATCH', body: { name: name.trim() } });
+            clToast('Renamed (Home Assistant shows the new name in a moment)'); await clLoad(); }
+      catch (e) { clToast('Failed: ' + e.message); }
+    }
+    async function clDisableDevice(id) {
+      const d = clDev(clHome(), id);
+      if (!confirm(`Disable ${d.name}? cync-lan will ignore it after the next restart (you can enable it again in cync_mesh.yaml).`)) return;
+      try { const r = await clApi(`/homes/${cl.home}/devices/${id}`, { method: 'PATCH', body: { enabled: false } });
+            clToast(r.restart_required ? 'Disabled: restart the app to apply' : 'Saved'); }
+      catch (e) { clToast('Failed: ' + e.message); }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showTab(location.hash === '#export' ? 'export' : 'manage');
+    });
+
   </script>
 </body>
 </html>
