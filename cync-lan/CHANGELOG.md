@@ -1,3 +1,7 @@
+### 0.0.8b1-mh7
+- Hybrid relay devices always get their own connection (they were rejected when the home's `max_clients` slots were full, so the Cync app showed them offline)
+- Installs garciarx/cync-lan at commit be1334a
+
 ### 0.0.8b1-mh6
 - **Fixed: whole homes showed unavailable after a restart** even though cync-lan saw them online (availability was not sent again after Home Assistant discovery)
 - Installs garciarx/cync-lan at commit 52302aa
