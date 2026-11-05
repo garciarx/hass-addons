@@ -26,6 +26,9 @@ export CYNC_CLOUD_IP="$(bashio::config 'cync_cloud_ip')"
 export CYNC_MITM_DEV_LOGGER="$(bashio::config 'dev_mitm_console')"
 export CYNC_MITM_APP_LOGGER="$(bashio::config 'app_mitm_console')"
 export CYNC_APP_MITM_LOGGING="$(bashio::config 'app_mitm_log')"
+# optional (older saved options lack them): off unless set
+export CYNC_CLOUD_UPLINK="$(bashio::config 'cloud_uplink' 'false')"
+export CYNC_APP_PROXY="$(bashio::config 'app_proxy' 'false')"
 export CYNC_MQTT_DEBUG="$(bashio::config 'mqtt_debug')"
 
 # when installing the cync_lan python package, pyproject.toml creates a cync-lan executable

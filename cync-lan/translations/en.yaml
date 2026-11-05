@@ -36,6 +36,12 @@ configuration:
   mqtt_debug:
     name: MQTT Debug Logging
     description: "Enable debug logging for MQTT messages [cuts down on log spam when off] (default: false)"
+  cloud_uplink:
+    name: Cloud uplink bridge
+    description: "One bridge per home (its multi-way switches, or the home's cloud_uplink list) is relayed to the Cync cloud so the Cync app shows live status. Home Assistant keeps control through all other bridges (default: false)"
+  app_proxy:
+    name: Relay the Cync app to the cloud
+    description: "Relay Cync app connections from your network to the Cync cloud instead of closing them, so the app works on your Wi-Fi (default: false)"
   app_mitm_log:
     name: App MITM Logging
     description: "Log MITM proxy requests from/to all Cync app instances (default: false)"

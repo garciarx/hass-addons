@@ -1,3 +1,10 @@
+### 0.0.8b1-mh3
+- **New option `cloud_uplink` (off by default)**: one bridge per home, preferably a multi-way (3-way auxiliary) switch, is relayed to the Cync cloud so the Cync app shows live status; Home Assistant keeps control through every other bridge
+- **New option `app_proxy` (off by default)**: the Cync app on your Wi-Fi is relayed to the cloud instead of being cut off, so it stops showing everything as unavailable. Turn on `app_mitm_log` too to capture its traffic
+- The export marks multi-way switches and logs the cloud's device field names; press **Start Export** once after updating
+- Fixed a CPU spin when the Cync cloud closed a MITM connection
+- Installs garciarx/cync-lan at commit e7c0468
+
 ### 0.0.8b1-mh2
 - **Cync rooms as lights (experimental)**: each Cync room becomes a light that turns the whole room on/off (and sets brightness / colour) with ONE command, like the Cync app, so the lights change together instead of one by one. After updating, press **Start Export** on the CyncLAN bridge device once and restart the app so the rooms are read from the cloud.
 - Installs garciarx/cync-lan at commit 543c8e0 (pinned instead of the `multi-home` branch name)

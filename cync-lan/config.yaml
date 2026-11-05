@@ -1,5 +1,5 @@
 name: "CyncLAN Bridge (multi-home)"
-version: "0.0.8b1-mh2"
+version: "0.0.8b1-mh3"
 slug: "cync-lan"
 description: "Local controller for Cync/C by GE smart devices (DNS redirection required)"
 arch:
@@ -48,6 +48,8 @@ options:
   mqtt_pass: ""
   mqtt_topic: "cync_lan_addon"
   app_mitm_log: false
+  cloud_uplink: false
+  app_proxy: false
   app_mitm_console: true
   dev_mitm_console: true
   cync_cloud_ip: "34.73.130.191"
@@ -70,6 +72,8 @@ schema:
   mqtt_user: str?
   mqtt_pass: password?
   app_mitm_log: bool
+  cloud_uplink: bool?
+  app_proxy: bool?
   app_mitm_console: bool
   dev_mitm_console: bool
   cync_cloud_ip: str?
