@@ -1,3 +1,8 @@
+### 0.0.8b1-mh9
+- **Local groups (experimental)**: groups cync-lan puts on the switches itself, e.g. one group for a whole suite across rooms; each is an HA light that switches all members with one command, with *Sync to switches* / *Remove from switches* buttons. Defined under `local_groups:` in `cync_mesh.yaml` for now (a page in this app's web UI is next)
+- Lights no longer show OFF for a moment after a restart
+- Installs garciarx/cync-lan at commit c4bb74a
+
 ### 0.0.8b1-mh8
 - Fixed: with `app_mitm_log` on, the Cync app's connection crashed instead of being relayed to the cloud, so the app showed everything unavailable
 - Installs garciarx/cync-lan at commit 459bb84
