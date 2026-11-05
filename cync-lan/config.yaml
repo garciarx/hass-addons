@@ -1,5 +1,5 @@
 name: "CyncLAN Bridge (multi-home)"
-version: "0.0.8b1-mh12"
+version: "0.0.8b1-mh13"
 slug: "cync-lan"
 description: "Local controller for Cync/C by GE smart devices (DNS redirection required)"
 arch:
@@ -59,6 +59,7 @@ options:
     command_targets: 2
     max_clients: 8
     mesh_refresh_secs: 90
+    command_batch_ms: 30
 
 schema:
   secret_key: str
@@ -84,6 +85,7 @@ schema:
     command_targets: int(1,)
     max_clients: int(1,)
     mesh_refresh_secs: int(0,)?
+    command_batch_ms: int(0,1000)?
 
 map:
   # FAIL TO START if 'addon_config' and/or 'homeassistant_config' are defined while 'config' is included.

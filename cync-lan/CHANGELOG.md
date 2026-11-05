@@ -1,3 +1,8 @@
+### 0.0.8b1-mh13
+- **Command batching**: commands that Home Assistant sends together (a light group of rooms, e.g. a "Master" tile) go out through the same devices in one go, so the rooms change together instead of one after another. New tuning option `command_batch_ms` (default 30, 0 = off)
+- Devices & Groups page: warns that a wall switch in a local group switches the whole group
+- Installs garciarx/cync-lan at commit be9b6c9
+
 ### 0.0.8b1-mh12
 - **New "Devices & Groups" tab** in this app's page (sidebar): every home's devices (online, bridge, 3-way, cloud relay, the groups each switch reports), its Cync rooms (read only, with *Copy as local group*), and cync-lan's local groups: create, edit, delete and re-sync them, rename or disable devices. Changes are saved to `cync_mesh.yaml` (with a backup) and show up in Home Assistant at once
 - The OTP / export page is now the *Export* tab

@@ -21,6 +21,11 @@ MESH_REFRESH_SECS="$(bashio::config 'tuning' | jq -r '.mesh_refresh_secs // empt
 if [ -n "${MESH_REFRESH_SECS}" ]; then
     export CYNC_MESH_REFRESH_SECS="${MESH_REFRESH_SECS}"
 fi
+# optional (older saved options lack it): unset = cync-lan's default (30 ms); 0 turns batching off
+CMD_BATCH_MS="$(bashio::config 'tuning' | jq -r '.command_batch_ms // empty')"
+if [ -n "${CMD_BATCH_MS}" ]; then
+    export CYNC_CMD_BATCH_MS="${CMD_BATCH_MS}"
+fi
 export CYNC_RAW_DEBUG="$(bashio::config 'raw_debug')"
 export CYNC_CLOUD_IP="$(bashio::config 'cync_cloud_ip')"
 export CYNC_MITM_DEV_LOGGER="$(bashio::config 'dev_mitm_console')"
