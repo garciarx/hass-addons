@@ -1,3 +1,7 @@
+### 0.0.8b1-mh8
+- Fixed: with `app_mitm_log` on, the Cync app's connection crashed instead of being relayed to the cloud, so the app showed everything unavailable
+- Installs garciarx/cync-lan at commit 459bb84
+
 ### 0.0.8b1-mh7
 - Hybrid relay devices always get their own connection (they were rejected when the home's `max_clients` slots were full, so the Cync app showed them offline)
 - Installs garciarx/cync-lan at commit be1334a
