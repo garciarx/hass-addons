@@ -1,3 +1,8 @@
+### 0.0.8b1-mh14
+- Removed command batching (`command_batch_ms`): sending a group of rooms through the same devices at once made the stagger worse and dropped rooms
+- A burst of commands (an HA light group of rooms) is now spread over as many connected devices as possible, each room's command going first through a device in that room
+- Installs garciarx/cync-lan at commit f9df90b
+
 ### 0.0.8b1-mh13
 - **Command batching**: commands that Home Assistant sends together (a light group of rooms, e.g. a "Master" tile) go out through the same devices in one go, so the rooms change together instead of one after another. New tuning option `command_batch_ms` (default 30, 0 = off)
 - Devices & Groups page: warns that a wall switch in a local group switches the whole group

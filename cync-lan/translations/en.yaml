@@ -70,9 +70,6 @@ configuration:
       max_clients:
         name: Max TCP Clients
         description: "Maximum Wi-Fi Cync devices connected at once, more is not better (default: 8)"
-      command_batch_ms:
-        name: Command batching (ms)
-        description: "Commands to one home that arrive within this window (e.g. an HA light group of rooms) are sent through the same devices in one go, so the lights change together. 0 = off (default: 30)"
       mesh_refresh_secs:
         name: Mesh Info Refresh (seconds)
         description: "How often every connected device is asked for mesh info again, so bulbs switched off at the wall are marked unavailable. 0 = only ask when a device connects (default: 90)"
