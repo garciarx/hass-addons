@@ -1,5 +1,5 @@
 >[!IMPORTANT]
-> DNS redirection is REQUIRED, please see [here](https://github.com/baudneo/cync-lan/tree/python/docs/DNS.md) for documentation and examples
+> DNS redirection is REQUIRED, please see [here](https://github.com/garciarx/cync-lan/tree/python/docs/DNS.md) for documentation and examples
 
 >[!WARNING]
 > It is **HIGHLY** recommended that you do **NOT** do any firmware upgrades to Cync devices after running cync-lan. 
@@ -26,7 +26,7 @@ This add-on provides:
 - __comms__: An async `aiomqtt` MQTT client for communication to HASS using the HASS MQTT JSON schema
 
 # Supported devices
-See [known devices](https://github.com/baudneo/cync-lan/tree/python/docs/known_devices.md)
+See [known devices](https://github.com/garciarx/cync-lan/tree/python/docs/known_devices.md)
 
 #### MOSTLY SUPPORTED
 - lights

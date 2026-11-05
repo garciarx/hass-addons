@@ -1,9 +1,12 @@
-# baudneo's Home Assistant App repository
+# garciarx's Home Assistant App repository
+
+A fork of [baudneo/hass-addons](https://github.com/baudneo/hass-addons). Its CyncLAN Bridge installs
+[garciarx/cync-lan](https://github.com/garciarx/cync-lan) (multi-home fork).
 
 The following Apps are available in this repository:
 
 - [CyncLAN Bridge](./cync-lan)
-[![Open your Home Assistant instance and show the add App repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fbaudneo%2Fhass-addons)
+[![Open your Home Assistant instance and show the add App repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fgarciarx%2Fhass-addons)
 
 <!--
 

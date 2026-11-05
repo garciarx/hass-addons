@@ -3,7 +3,7 @@ name: Build and publish cync-lan images
 # Builds the multi-arch cync-lan add-on images and pushes them to GHCR.
 #  - automatically when a GitHub release is published
 #  - on demand (Actions -> Run workflow), e.g. for a hot fix. Set `push` to false for a build-only check
-#    and `cync_lan_ref` to build a different baudneo/cync-lan branch, tag or sha than the Dockerfile default.
+#    and `cync_lan_ref` to build a different garciarx/cync-lan branch, tag or sha than the Dockerfile default.
 # NOTE: cync-lan/config.yaml has no `image:` key, so Home Assistant still builds the add-on locally; these
 # images are not used until that key is added (see README / PR notes).
 
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       cync_lan_ref:
-        description: "baudneo/cync-lan git ref to install (empty = Dockerfile default)"
+        description: "garciarx/cync-lan git ref to install (empty = Dockerfile default)"
         required: false
         default: ""
         type: string

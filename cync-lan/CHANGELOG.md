@@ -1,3 +1,7 @@
+### 0.0.8b1-mh15
+- Links (docs, support URL, issues) point at the garciarx forks; no behaviour change
+- Installs garciarx/cync-lan at commit 8147369 (now also the `python` branch)
+
 ### 0.0.8b1-mh14
 - Removed command batching (`command_batch_ms`): sending a group of rooms through the same devices at once made the stagger worse and dropped rooms
 - A burst of commands (an HA light group of rooms) is now spread over as many connected devices as possible, each room's command going first through a device in that room
