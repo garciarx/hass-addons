@@ -369,7 +369,7 @@
       }).join('');
 
       document.getElementById('clContent').innerHTML = `
-        <div class="cl-card"><header><div><h2>Local groups</h2><div class="cl-sub">Made by cync-lan and stored on the switches. The Cync app does not show them.</div></div>
+        <div class="cl-card"><header><div><h2>Local groups</h2><div class="cl-sub">Made by cync-lan and stored on the switches. The Cync app does not show them. A wall switch in a group turns the whole group on / off when pressed.</div></div>
           <button class="cl-btn primary" onclick="clEditGroup(null)">New group</button></header>${groups}</div>
         <div class="cl-card"><header><div><h2>Cync rooms</h2><div class="cl-sub">From your Cync account, read only (change them in the Cync app, then export again).</div></div></header>${rooms}</div>
         <div class="cl-card"><header><div><h2>Devices</h2><div class="cl-sub">${home.devices.filter(d => d.online).length} of ${home.devices.length} online</div></div>
@@ -400,6 +400,8 @@
             <input id="clGName" class="cl-input" placeholder="Group name, e.g. Master Suite" value="${esc(g?.name ?? preset?.name ?? '')}">
             <input id="clGFilter" class="cl-input" placeholder="Filter switches…" oninput="clFilter(this.value)">
             ${sections}
+            <div class="cl-note" style="color:var(--cl-warn)"><strong>Wall switches:</strong> a switch's own button controls every group it is in.
+              Put a wall switch in a group only if pressing it should switch the whole group. Bulbs, plugs and 3-way auxiliaries are safe.</div>
             <div class="cl-note">Saving puts the group on the selected switches (about 1 s per switch). A switch can be in 8 groups at most.
               ${g ? 'Switches you untick are taken out of the group.' : ''}</div>
             <div id="clGErr" class="cl-err"></div>
